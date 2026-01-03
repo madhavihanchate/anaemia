@@ -32,42 +32,4 @@ Explainable outputs (per modality probabilities + final risk score)
 Anaemia is a widespread health condition that often remains under diagnosed due to limited access to clinical testing.
 This project explores non-invasive, image-based screening using commonly visible physiological indicators, providing a supportive screening tool (not a diagnostic replacement).
 
-🗂️ Project Structure
-anaemia-detection/
-├── dataloaders/
-│   ├── __init__.py
-│   ├── conjunctiva_loader.py
-│   ├── palm_loader.py
-│   └── nails_loader.py
-│
-├── models/
-│   ├── __init__.py
-│   ├── cnn_conjunctiva.py
-│   ├── cnn_palm.py
-│   └── cnn_nails.py
-│
-├── training/
-│   ├── train_conjunctiva.py
-│   ├── train_palm.py
-│   └── train_nails.py
-│
-├── evaluation/
-│   ├── eval_conjunctiva.py
-│   ├── eval_palm.py
-│   └── eval_nails.py
-│
-├── ensemble/
-│   └── ensemble_inference.py
-│
-├── artifacts/
-│   ├── cnn_conjunctiva_best.pth
-│   ├── cnn_palm_best.pth
-│   └── cnn_nails_best.pth
-│
-├── inference_inputs/
-│   ├── conjunctiva.jpg
-│   ├── palm.jpg
-│   └── nails.jpg
-│
-├── requirements.txt
-└── README.md
+
