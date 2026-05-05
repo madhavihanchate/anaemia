@@ -1,16 +1,13 @@
-# contains FASTAPI code for the project
-
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import shutil
 import os
 import uuid
 
-from ENSEMBLE.final import ensemble_predict   # adjust if path differs
+from ENSEMBLE.final import ensemble_predict
 
 app = FastAPI()
 
-# Allow frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -19,8 +16,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-TEMP_DIR = "temp_uploads"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMP_DIR = os.path.join(BASE_DIR, "temp_uploads")
 os.makedirs(TEMP_DIR, exist_ok=True)
+
+ALLOWED_TYPES = ["image/jpeg", "image/png"]
+
+
+def validate_file(file: UploadFile):
+    if file.content_type not in ALLOWED_TYPES:
+        raise HTTPException(status_code=400, detail="Invalid file type")
 
 
 def save_temp_file(upload_file: UploadFile):
@@ -33,19 +38,28 @@ def save_temp_file(upload_file: UploadFile):
     return file_path
 
 
+@app.get("/")
+def health():
+    return {"status": "ok"}
+
+
 @app.post("/predict")
 async def predict_api(
     conjunctiva: UploadFile = File(...),
     palm: UploadFile = File(...),
     nails: UploadFile = File(...)
 ):
+    conj_path = palm_path = nails_path = None
+
     try:
-        # Save files temporarily
+        validate_file(conjunctiva)
+        validate_file(palm)
+        validate_file(nails)
+
         conj_path = save_temp_file(conjunctiva)
         palm_path = save_temp_file(palm)
         nails_path = save_temp_file(nails)
 
-        # Call your existing function (UNCHANGED)
         result = ensemble_predict(
             conj_path=conj_path,
             palm_path=palm_path,
@@ -54,8 +68,10 @@ async def predict_api(
 
         return result
 
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
     finally:
-        # Clean up temp files
         for path in [conj_path, palm_path, nails_path]:
-            if os.path.exists(path):
+            if path and os.path.exists(path):
                 os.remove(path)
