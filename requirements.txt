@@ -1,7 +1,10 @@
-torch
-torchvision
-opencv-python
+fastapi
+uvicorn[standard]
+python-multipart
 numpy
-matplotlib
+pandas
+opencv-python
 scikit-learn
-tqdm
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
