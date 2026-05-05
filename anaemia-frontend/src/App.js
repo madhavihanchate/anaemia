@@ -144,7 +144,7 @@ export default function App() {
     formData.append("palm", palm);
     formData.append("nails", nails);
     try {
-      const res = await axios.post("http://localhost:8000/predict", formData);
+      const res = await axios.post("https://anaemia-detection-1.onrender.com", formData);
       setResult(res.data);
       setTimeout(() => {
         resultRef.current?.scrollIntoView({ behavior: "smooth" });
