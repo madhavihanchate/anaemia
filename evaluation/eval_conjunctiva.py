@@ -29,7 +29,7 @@ y_test = torch.tensor(y_test)
 
 
 # Load model
-
+3
 from models.cnn_conjuctiva import get_model
 
 device = torch.device("cpu")

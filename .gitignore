@@ -1,0 +1,45 @@
+# ================== PYTHON ==================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+
+# Model weights (decide before ignoring!)
+*.pt
+*.pth
+*.h5
+*.ckpt
+
+# ================== DATA ==================
+data/
+artifacts/
+temp_uploads/
+sample_inputs/
+
+# (If sample_inputs is needed for demo, remove it from ignore)
+
+# ================== NOTEBOOKS ==================
+.ipynb_checkpoints/
+
+# ================== NODE (FRONTEND) ==================
+anaemia-frontend/node_modules/
+anaemia-frontend/build/
+anaemia-frontend/dist/
+
+# ================== ENV ==================
+.env
+
+# ================== LOGS ==================
+*.log
+
+# ================== IDE ==================
+.vscode/
+.idea/
+
+# ================== OS ==================
+.DS_Store
+Thumbs.db

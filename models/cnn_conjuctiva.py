@@ -4,10 +4,6 @@ from torchvision import models
 
 
 class CNNConjunctiva(nn.Module):
-    """
-    EfficientNet-B0 based CNN for conjunctiva anaemia detection
-    Output: logits (no sigmoid)
-    """
 
     def __init__(self, pretrained=True):
         super(CNNConjunctiva, self).__init__()
